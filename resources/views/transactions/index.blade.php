@@ -7,8 +7,8 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white">
-                <table class="table-auto w-full">
+            <div class="bg-white p-10">
+                <table class="table-auto w-full p-2" id="table-transaksi">
                     <thead>
                     <tr>
                         <th class="border px-6 py-4">ID</th>
@@ -17,6 +17,7 @@
                         <th class="border px-6 py-4">Quantity</th>
                         <th class="border px-6 py-4">Total</th>
                         <th class="border px-6 py-4">Status</th>
+                        <th class="border px-6 py-4">Tanggal</th>
                         <th class="border px-6 py-4">Action</th>
                     </tr>
                     </thead>
@@ -29,6 +30,7 @@
                                 <td class="border px-6 py-4">{{ $item->quantity }}</td>
                                 <td class="border px-6 py-4">{{ number_format($item->total) }}</td>
                                 <td class="border px-6 py-4">{{ $item->status }}</td>
+                                <td class="border px-6 py-4">{{ date("d M Y", strtotime($item->created_at))  }}</td>
                                 <td class="border px-6 py- text-center">
                                     <a href="{{ route('transactions.show', $item->id) }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded">
                                         View
@@ -56,4 +58,14 @@
             </div>
         </div>
     </div>
+		<script>
+			$(document).ready(function() {
+				$('#table-transaksi').DataTable( {
+						dom: 'Bfrtip',
+						buttons: [
+								'copy', 'csv', 'excel', 'pdf', 'print'
+						]
+				} );
+			});
+		</script>
 </x-app-layout>
